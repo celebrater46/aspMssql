@@ -1,5 +1,8 @@
 SQL Server
 
+・DockerでSQLServerを起動&初期データ登録
+https://qiita.com/urushibata/items/2d499e057fe9ed0cde64
+
 $#########$#########$#########$#########$#########
 210831
 
