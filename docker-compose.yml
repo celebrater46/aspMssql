@@ -20,21 +20,22 @@ services:
 
   # SQL Server
   mssql:
-#    image: microsoft/mssql-server-linux:latest
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: mssql
+    build:
+      context: ./docker/mssqlserver/
+    image: mssql
     ports:
-      - 11433:1433
+      - 1433:1433
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=8sAApJxd5ELFHfd5
-      - MSSQL_PID=Express
-      - MSSQL_LCID=1041
-      - MSSQL_COLLATION=Japanese_CI_AS
-    tty: true
+      - SA_PASSWORD=56CFUVzh # パスワードポリシー(https://docs.microsoft.com/ja-jp/sql/relational-databases/security/password-policy?view=sql-server-ver15)
+      - MSSQL_PID=Express # SQL Serverのエディションまたはプロダクトキー
+      - MSSQL_LCID=1041 # ロケールID 日本語 (https://www.ryadel.com/en/microsoft-windows-lcid-list-decimal-and-hex-all-locale-codes-ids/)
+      - MSSQL_COLLATION=Japanese_CI_AS # 照合順
+      - DB_NAME=DEMO # 初回起動時のDB存在判定のために使用します。
     volumes:
-      - "/docker/mssql/data:/var/opt/mssql/data"
-      - "/docker/mssql/log:/var/opt/mssql/log"
-      - "/docker/mssql/secrets:/var/opt/mssql/secrets"
+      - ./docker/mssqlserver/initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/mssqlserver/data:/var/opt/mssql/data
+      - ./docker/mssqlserver/log:/var/opt/mssql/log
+      - ./docker/mssqlserver/secrets:/var/opt/mssql/sec
 networks:
   sample-network5:
