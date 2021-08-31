@@ -1,5 +1,0 @@
-docker/mssqlserver/data
-docker/mssqlserver/log
-docker/mssqlserver/secrets
-docker/dotnet/src
-docker/dontreadme.txt
