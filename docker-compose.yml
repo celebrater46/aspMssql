@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  # .NET5
+  dotnet:
+    container_name: dotnet
+    build:
+      context: ./docker/dotnet/src
+#      context: ./docker/dotnet/src_docker
+      dockerfile: DB_Ope_API/Dockerfile
+#      dockerfile: DockerTestApi210818/Dockerfile
+    tty: true
+    volumes:
+      - ./docker/dotnet/src:/src
+#      - ./docker/dotnet/src_docker:/src
+    ports:
+      - "8081:80"
+      - "44301:443"
+    network_mode: "sample-network5"
+
+  # SQL Server
+  mssql:
+    image: microsoft/mssql-server-linux:latest
+    container_name: mssql
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=docker
+      - MSSQL_PID=Express
+      - MSSQL_LCID=1041
+      - MSSQL_COLLATION=Japanese_CI_AS
+    volumes:
+      - "/docker/mssql/data:/var/opt/mssql/data"
+      - "/docker/mssql/log:/var/opt/mssql/log"
+      - "/docker/mssql/secrets:/var/opt/mssql/secrets"
+networks:
+  sample-network5:
