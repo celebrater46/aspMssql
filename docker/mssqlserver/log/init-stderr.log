@@ -1,7 +1,0 @@
-./entrypoint.sh: line 8: $'\r': command not found
-/docker-entrypoint-initdb.d/import-data.sh: line 1: ﻿#!/bin/bash: No such file or directory
-sleep: invalid time interval '20\r'
-Try 'sleep --help' for more information.
-/docker-entrypoint-initdb.d/import-data.sh: line 3: $'\r': command not found
-/docker-entrypoint-initdb.d/import-data.sh: line 8: syntax error near unexpected token `$'\r''
-/docker-entrypoint-initdb.d/import-data.sh: line 8: `    for file in $sql_files;'
